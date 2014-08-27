@@ -8,38 +8,41 @@
 <canvas></canvas>
 <script>
 
-var canvas = document.querySelector("canvas");
-var context = canvas.getContext("2d");
+//var canvas = document.querySelector("canvas");
+//var context = canvas.getContext("2d");
 
 function translateTest(matrix, tryCount)
 {
   matrix.translateSelf(10, 20, 30);
-  context.fillRect(0, 0, 10, 10);
+  //context.fillRect(0, 0, 10, 10);
 }
 
 function scaleTest(matrix, tryCount)
 {
   matrix.scaleNonUniformSelf(10, 20, 30);
-  context.fillRect(0, 0, 10, 10);
+  //context.fillRect(0, 0, 10, 10);
   matrix.scaleNonUniformSelf(0.1, 0.05, 0.025);
-  context.fillRect(0, 0, 10, 10);
+  //context.fillRect(0, 0, 10, 10);
 }
 
+const SIMPLE_RESULT = true;
 //const TEST_COUNT = 1;
 //const TEST_COUNT = 10;
 //const TEST_COUNT = 100;
+//const TEST_COUNT = 1000;
 //const TEST_COUNT = 10000;
 //const TEST_COUNT = 5000;
 //const TEST_COUNT = 10000;
 //const TEST_COUNT = 100000;
-const TEST_COUNT = 1000000;
+const TEST_COUNT = 20000000;
 
 var dm = new DOMMatrix();
 measurePerformance({
   matrix : dm,
   test : translateTest,
   repeatCount : TEST_COUNT,
-  description : "DOMMatrix.translateSelf"
+  description : "DOMMatrix.translateSelf",
+  simpleResult : SIMPLE_RESULT
 });
 
 var dmp = new DOMMatrixPolyfill();
@@ -47,7 +50,8 @@ measurePerformance({
   matrix : dmp,
   test : translateTest,
   repeatCount : TEST_COUNT,
-  description : "DOMMatrixPolyFill.translateSelf"
+  description : "DOMMatrixPolyFill.translateSelf",
+  simpleResult : SIMPLE_RESULT
 });
 
 var dm = new DOMMatrix();
@@ -55,7 +59,8 @@ measurePerformance({
   matrix : dm,
   test : scaleTest,
   repeatCount : TEST_COUNT,
-  description : "DOMMatrix.translateSelf"
+  description : "DOMMatrix.translateSelf",
+  simpleResult : SIMPLE_RESULT
 });
 
 var dmp = new DOMMatrixPolyfill();
@@ -63,7 +68,8 @@ measurePerformance({
   matrix : dmp,
   test : scaleTest,
   repeatCount : TEST_COUNT,
-  description : "DOMMatrixPolyFill.translateSelf"
+  description : "DOMMatrixPolyFill.translateSelf",
+  simpleResult : SIMPLE_RESULT
 });
 
 </script>

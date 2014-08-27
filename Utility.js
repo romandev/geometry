@@ -30,6 +30,9 @@ var measurePerformance = function(parameters) {
   if (parameters.description == undefined) {
     parameters.description = "Unknown test";
   }
+  if (parameters.simpleResult == undefined) {
+    parameters.simpleResult = true;
+  }
 
   __queue.push(parameters);
   if (__lock)
@@ -52,21 +55,27 @@ var measurePerformance = function(parameters) {
     var matrix = parameters.matrix;
     var repeatCount = parameters.repeatCount;
 
-    console.log(parameters.description);
-    console.log("Before:");
-    __blank = "\t";
-    printMatrix(matrix);
+    if (!parameters.simpleResult) {
+      console.log(parameters.description);
+      console.log("Before:");
+      __blank = "\t";
+      printMatrix(matrix);
+    }
     var startTime = performance.now();
 
     for (var tryCount = 0; tryCount < repeatCount; tryCount++) 
       parameters.test(matrix, tryCount);
 
     var endTime = performance.now();
-    console.log("After:");
-    printMatrix(matrix);
-    __blank = "";
-    console.log("Result: " + (endTime - startTime));
-    console.log("");
+    if (!parameters.simpleResult) {
+      console.log("After:");
+      printMatrix(matrix);
+      __blank = "";
+      console.log("Result: " + (endTime - startTime));
+      console.log("");
+    } else {
+      console.log(parameters.description + "\n  " + (endTime - startTime));
+    }
 
     setTimeout(measure, 1000);
   };
