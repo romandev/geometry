@@ -26,6 +26,23 @@ DOMMatrixPolyfill.prototype.translateSelf = function(tx, ty, tz) {
   return this;
 };
 
+DOMMatrixPolyfill.prototype.scaleNonUniformSelf = function(sx, sy, sz, ox, oy, oz) {
+  this._matrix[0] *= sx;
+  this._matrix[1] *= sx;
+  this._matrix[2] *= sx;
+  this._matrix[3] *= sx;
+
+  this._matrix[4] *= sy;
+  this._matrix[5] *= sy;
+  this._matrix[6] *= sy;
+  this._matrix[7] *= sy;
+
+  this._matrix[8] *= sz;
+  this._matrix[9] *= sz;
+  this._matrix[10] *= sz;
+  this._matrix[11] *= sz;
+};
+
 Object.defineProperty(DOMMatrixPolyfill.prototype, "a", {
   get : function() { return this.m11; },
   set : function(value) { this.m11 = value; }
